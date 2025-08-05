@@ -1,11 +1,11 @@
-// Minimum response we expect from the API
-type AnimeSearchResult = {
-  data: {
-    mal_id: number;
-    title: string;
-    images: { jpg: { image_url: string } };
-    synopsis: string;
-  }[];
+import type { Anime } from "../types/anime";
+
+export type AnimeSearchResult = {
+  data: Anime[];
+  pagination?: {
+    last_visible_page: number;
+    has_next_page: boolean;
+  };
 };
 
 export const searchAnime = async (
