@@ -1,12 +1,14 @@
 import { searchAnime } from "../../services/jikanAPI";
 import { useState, useRef } from "react";
-import AnimeList from "../AnimeList/AnimeList";
 import type { Anime } from "../../types/anime";
 
-function SearchBar() {
+interface SearchBarProps {
+  onSearchResults: (results: Anime[]) => void;
+}
+
+function SearchBar({ onSearchResults }: SearchBarProps) {
   // Local state for the search term
   const [searchTerm, setSearchTerm] = useState("");
-  const [animes, setAnimes] = useState<Anime[]>([]);
   const debounceRef = useRef<number | null>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,11 +25,11 @@ function SearchBar() {
       if (value.trim().length > 2) {
         try {
           const results = await searchAnime(value);
-          setAnimes(results.data);
+          onSearchResults(results.data);
           console.log(`Results: ${results.data}`);
         } catch (error) {
           console.error(`Error: ${error}`);
-          setAnimes([]);
+          onSearchResults([]);
         }
       }
     }, 500);
@@ -38,11 +40,10 @@ function SearchBar() {
 
     try {
       const results = await searchAnime(searchTerm);
-      setAnimes(results.data);
-      console.log(`Animes found: ${results.data}`);
+      onSearchResults(results.data);
     } catch (error) {
       console.error(`Search error: ${error}`);
-      setAnimes([]);
+      onSearchResults([]);
     }
   };
 
@@ -56,9 +57,6 @@ function SearchBar() {
         placeholder="Ex: Naruto"
       />
       <button onClick={handleSearch}>Search</button>
-
-      {/* Anime List receives the state's anime. */}
-      <AnimeList animes={animes} />
     </div>
   );
 }

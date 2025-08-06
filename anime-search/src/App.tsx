@@ -1,7 +1,11 @@
-import SearchBar from "./components/SearchBar/SearchBar";
+import Home from "./pages/Home";
 
 function App() {
-  return <SearchBar />;
+  return (
+    <section className="app">
+      <Home></Home>
+    </section>
+  );
 }
 
 export default App;

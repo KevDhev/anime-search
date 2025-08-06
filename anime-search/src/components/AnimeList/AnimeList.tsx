@@ -10,6 +10,10 @@ function AnimeList({ animes }: Props) {
     console.log(animeId);
   };
 
+  const handleAddToFavorites = (anime: Anime) => {
+    console.log(`Adding to favorites: ${anime.title}`);
+  };
+
   return (
     <ul className="anime-list">
       {animes.length === 0 ? (
@@ -27,6 +31,12 @@ function AnimeList({ animes }: Props) {
               className="anime-image"
             />
             <h2 className="anime-title">{anime.title}</h2>
+            <button
+              className="favorite-btn"
+              onClick={() => handleAddToFavorites(anime)}
+            >
+              Add to favorites
+            </button>
           </li>
         ))
       )}
