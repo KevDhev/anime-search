@@ -1,17 +1,15 @@
 import type { Anime } from "../../types/anime";
+import { addFavorite } from "../../utils/localStorage";
 
 interface Props {
   animes: Anime[]; // Receive the list of anime as a prop
+  onRemoveFavorite?: (animeId: number) => void;
 }
 
-function AnimeList({ animes }: Props) {
-  const handleAnimeClick = (animeId: number) => {
-    // browse or add to favorites
-    console.log(animeId);
-  };
-
+function AnimeList({ animes, onRemoveFavorite }: Props) {
   const handleAddToFavorites = (anime: Anime) => {
-    console.log(`Adding to favorites: ${anime.title}`);
+    addFavorite(anime);
+    alert(`${anime.title} has been added to favorites!`);
   };
 
   return (
@@ -20,23 +18,29 @@ function AnimeList({ animes }: Props) {
         <li className="no-results">No anime found. Please try again.</li>
       ) : (
         animes.map((anime) => (
-          <li
-            className="anime-card"
-            key={anime.mal_id}
-            onClick={() => handleAnimeClick(anime.mal_id)}
-          >
+          <li className="anime-card" key={anime.mal_id}>
             <img
               src={anime.images.jpg.image_url}
               alt={`Cover of ${anime.title}`}
               className="anime-image"
             />
             <h2 className="anime-title">{anime.title}</h2>
-            <button
-              className="favorite-btn"
-              onClick={() => handleAddToFavorites(anime)}
-            >
-              Add to favorites
-            </button>
+
+            {onRemoveFavorite ? (
+              <button
+                className="remove-btn"
+                onClick={() => onRemoveFavorite(anime.mal_id)}
+              >
+                Remove from favorites
+              </button>
+            ) : (
+              <button
+                className="favorite-btn"
+                onClick={() => handleAddToFavorites(anime)}
+              >
+                Add to favorites
+              </button>
+            )}
           </li>
         ))
       )}
