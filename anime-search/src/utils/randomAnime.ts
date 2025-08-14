@@ -11,7 +11,7 @@ type Filter = "top" | "popular" | "upcoming" | "bypopularity";
  * @param limit - Maximum number of animes to return (default: 5)
  */
 
-export const getRandomsAnimes = async (
+export const getRandomAnimes = async (
   filter: Filter = "top",
   limit: number = 5
 ): Promise<Anime[]> => {

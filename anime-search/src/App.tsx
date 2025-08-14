@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
-import Recommended from "./components/Recommended/Recommended";
+import Recommended from "./pages/Recommended";
 import Navbar from "./components/Navbar/Navbar";
 
 function App() {
