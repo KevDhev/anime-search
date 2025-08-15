@@ -4,24 +4,31 @@ import { getRandomAnimes } from "../utils/randomAnime";
 
 function Recommended() {
   const [currentAnime, setCurrentAnime] = useState<Anime | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  // Get a random anime and save the latest update
+  // Load or refresh anime
   const loadRandomAnime = async () => {
-    const animes = await getRandomAnimes("top", 1);
+    try {
+      const animes = await getRandomAnimes(1);
 
-    if (animes.length > 0) {
+      if (animes.length === 0) {
+        throw new Error("No anime found");
+      }
+
       setCurrentAnime(animes[0]);
-
-      // Save the last update time
       localStorage.setItem("lastAnimeUpdate", Date.now().toString());
+      localStorage.setItem("currentAnime", JSON.stringify(animes[0]));
+    } catch (err) {
+      setError("Failed to load recommendations. Please try again later.");
+      console.error(err);
     }
   };
 
-  // Check if it's time to change the anime
+  // Check if we need to fetch new anime
   useEffect(() => {
     const lastUpdate = localStorage.getItem("lastAnimeUpdate");
     const now = Date.now();
-    const hoursToWait = 6;
+    const hoursToWait = 6; // Change anime every 6 hours
 
     if (
       !lastUpdate ||
@@ -29,30 +36,33 @@ function Recommended() {
     ) {
       loadRandomAnime();
     } else {
-      // Load the last anime shown (if it exists)
       const savedAnime = localStorage.getItem("currentAnime");
       if (savedAnime) setCurrentAnime(JSON.parse(savedAnime));
     }
   }, []);
 
+  if (error) return <p className="error-message">{error}</p>;
+
   if (!currentAnime)
-    return <section className="loading">Loading recommendations...</section>;
+    return <p className="loading">Loading recommendations...</p>;
 
   return (
     <section className="recommended-page">
-      <h1>Recommended Anime of the Day</h1>
+      <h1>Recommended Anime</h1>
       <article className="anime-detail">
         <img
           src={
             currentAnime.images.jpg.large_image_url ||
             currentAnime.images.jpg.image_url
           }
-          alt={currentAnime.title}
-          className="detail-image"
+          alt={`Cover of ${currentAnime.title}`}
+          className="anime-cover"
         />
         <div className="anime-info">
           <h2>{currentAnime.title}</h2>
-          {currentAnime.score && <p>⭐ Score: {currentAnime.score}</p>}
+          {currentAnime.score && (
+            <p>⭐ Score: {currentAnime.score.toFixed(1)}</p>
+          )}
           {currentAnime.episodes && <p>📺 Episodes: {currentAnime.episodes}</p>}
           {currentAnime.synopsis && (
             <p className="synopsis">{currentAnime.synopsis}</p>

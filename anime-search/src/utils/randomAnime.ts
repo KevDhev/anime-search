@@ -2,29 +2,25 @@ import type { Anime } from "../types/anime";
 
 const JIKAN_API_URL = "https://api.jikan.moe/v4";
 
-// Supported filter types
-type Filter = "top" | "popular" | "upcoming" | "bypopularity";
-
 /*
- * Get random anime based on a Jikan filter
- * @param filter - Filter type (ex: 'top')
- * @param limit - Maximum number of animes to return (default: 5)
+ * Get random anime from Jikan's top list
+ * @param limit - Maximum number of animes to return (default: 1)
  */
 
-export const getRandomAnimes = async (
-  filter: Filter = "top",
-  limit: number = 5
-): Promise<Anime[]> => {
+export const getRandomAnimes = async (limit: number = 1): Promise<Anime[]> => {
   try {
-    // 1. Consult Jikan with the filter
-    const response = await fetch(`${JIKAN_API_URL}/top/anime?filter=${filter}`);
-    if (!response.ok) throw new Error("Error getting anime");
+    // 1. Fetch top anime list
+    const response = await fetch(`${JIKAN_API_URL}/top/anime`);
+    if (!response.ok) throw new Error("Failed to fetch anime");
 
-    // 2. Extract and mix results
-    const data: { data: Anime[] } = await response.json();
+    // 2. Parse and validate response
+    const data = await response.json();
+    if (!data.data || !Array.isArray(data.data)) {
+      throw new Error("Invalid API response format");
+    }
+
+    // 3. Shuffle and slice
     const shuffled = [...data.data].sort(() => 0.5 - Math.random());
-
-    // 3. Return a random subset
     return shuffled.slice(0, limit);
   } catch (error) {
     console.error(`Error in getRandomAnimes: ${error}`);
