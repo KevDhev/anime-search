@@ -19,13 +19,14 @@ function Favorites() {
 
   return (
     <section className="favorites-page">
-      <h1>Your favorite anime</h1>
+      <h2>Your favorite anime</h2>
 
       {favorites.length > 0 ? (
         <AnimeList
           animes={favorites}
+          variant="compact"
           onRemoveFavorite={handleRemoveFavorite}
-        ></AnimeList>
+        />
       ) : (
         <p>You don't have saved anime. Add some from the search!</p>
       )}

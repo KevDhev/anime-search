@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Anime } from "../types/anime";
 import { getRandomAnimes } from "../utils/randomAnime";
+import AnimeCard from "../components/AnimeCard/AnimeCard";
 
 function Recommended() {
   const [currentAnime, setCurrentAnime] = useState<Anime | null>(null);
@@ -48,34 +49,8 @@ function Recommended() {
 
   return (
     <section className="recommended-page">
-      <h1>Recommended Anime</h1>
-      <article className="anime-detail">
-        <img
-          src={
-            currentAnime.images.jpg.large_image_url ||
-            currentAnime.images.jpg.image_url
-          }
-          alt={`Cover of ${currentAnime.title}`}
-          className="anime-cover"
-        />
-        <div className="anime-info">
-          <h2>{currentAnime.title}</h2>
-          {currentAnime.score && (
-            <p>⭐ Score: {currentAnime.score.toFixed(1)}</p>
-          )}
-          {currentAnime.episodes && <p>📺 Episodes: {currentAnime.episodes}</p>}
-          {currentAnime.synopsis && (
-            <p className="synopsis">{currentAnime.synopsis}</p>
-          )}
-          {currentAnime.genres && (
-            <ul className="genres">
-              {currentAnime.genres.map((genre) => (
-                <li key={genre.mal_id}>{genre.name}</li>
-              ))}
-            </ul>
-          )}
-        </div>
-      </article>
+      <h2>Recommended Anime</h2>
+      <AnimeCard anime={currentAnime} variant="detailed" />
     </section>
   );
 }
