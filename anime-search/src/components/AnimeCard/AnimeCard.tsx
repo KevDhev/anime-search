@@ -1,3 +1,4 @@
+import type React from "react";
 import type { Anime } from "../../types/anime";
 
 interface Props {
@@ -5,6 +6,7 @@ interface Props {
   variant?: "detailed" | "compact";
   onRemoveFavorite?: (animeId: number) => void;
   onAddFavorite?: (anime: Anime) => void;
+  onOpenModal?: (anime: Anime) => void;
 }
 
 function AnimeCard({
@@ -12,19 +14,31 @@ function AnimeCard({
   variant = "compact",
   onRemoveFavorite,
   onAddFavorite,
+  onOpenModal,
 }: Props) {
   // Add to favorites
-  const handleAddFavorite = () => {
+  const handleAddFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (onAddFavorite) onAddFavorite(anime);
   };
 
   // Remove from favorites
-  const handleRemoveFavorite = () => {
+  const handleRemoveFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
     if (onRemoveFavorite) onRemoveFavorite(anime.mal_id);
   };
 
+  const handleCardClick = () => {
+    if (onOpenModal && variant === "compact") onOpenModal(anime);
+  };
+
   return (
-    <article className={`anime-card anime-card--${variant}`}>
+    <article
+      className={`anime-card anime-card--${variant} ${
+        onOpenModal ? "clickable" : ""
+      }`}
+      onClick={handleCardClick}
+    >
       <img
         src={anime.images.jpg.image_url}
         alt={`Cover of ${anime.title}`}
