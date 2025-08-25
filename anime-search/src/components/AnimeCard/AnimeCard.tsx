@@ -1,31 +1,19 @@
 import type React from "react";
 import type { Anime } from "../../types/anime";
+import { useFavorites } from "../../hooks/useFavorites";
 
 interface Props {
   anime: Anime;
   variant?: "detailed" | "compact";
-  onRemoveFavorite?: (animeId: number) => void;
-  onAddFavorite?: (anime: Anime) => void;
   onOpenModal?: (anime: Anime) => void;
 }
 
-function AnimeCard({
-  anime,
-  variant = "compact",
-  onRemoveFavorite,
-  onAddFavorite,
-  onOpenModal,
-}: Props) {
-  // Add to favorites
-  const handleAddFavorite = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (onAddFavorite) onAddFavorite(anime);
-  };
+function AnimeCard({ anime, variant = "compact", onOpenModal }: Props) {
+  const { isFavorite, toggleFavorite } = useFavorites();
 
-  // Remove from favorites
-  const handleRemoveFavorite = (e: React.MouseEvent) => {
+  const handleFavoriteClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (onRemoveFavorite) onRemoveFavorite(anime.mal_id);
+    toggleFavorite(anime);
   };
 
   const handleCardClick = () => {
@@ -91,15 +79,18 @@ function AnimeCard({
         )}
 
         <section className="anime-card__actions">
-          {onRemoveFavorite ? (
-            <button className="btn btn-remove" onClick={handleRemoveFavorite}>
-              Remove from favorites
-            </button>
-          ) : (
-            <button className="btn btn-add" onClick={handleAddFavorite}>
-              Add to Favorites
-            </button>
-          )}
+          <button
+            onClick={handleFavoriteClick}
+            className={`anime-card__btn ${
+              isFavorite(anime.mal_id)
+                ? "anime-card__btn--remove"
+                : "anime-card__btn--add"
+            }`}
+          >
+            {isFavorite(anime.mal_id)
+              ? "Delete from favorites"
+              : "Add to favorites"}
+          </button>
         </section>
       </section>
     </article>

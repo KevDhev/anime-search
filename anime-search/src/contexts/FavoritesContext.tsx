@@ -5,10 +5,8 @@ import {
   addFavorite,
   removeFavorite,
 } from "../utils/localStorage";
-import {
-  FavoritesContext,
-  type FavoritesContextType,
-} from "../types/favorites";
+import { FavoritesContext } from "../types/favorites";
+import type { FavoritesContextType } from "../types/favorites";
 
 // Provider: Component that wraps the app and provides the context
 export function FavoritesProvider({ children }: { children: React.ReactNode }) {
