@@ -1,7 +1,7 @@
 import { useState } from "react";
-import SearchBar from "../components/SearchBar/SearchBar";
-import AnimeList from "../components/AnimeList/AnimeList";
-import type { Anime } from "../types/anime";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import AnimeList from "../../components/AnimeList/AnimeList";
+import type { Anime } from "../../types/anime";
 
 function Home() {
   const [searchResults, setSearchResults] = useState<Anime[]>([]);

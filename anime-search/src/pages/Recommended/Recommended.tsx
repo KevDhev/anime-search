@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import type { Anime } from "../types/anime";
-import { getRandomAnimes } from "../utils/randomAnime";
-import AnimeCard from "../components/AnimeCard/AnimeCard";
+import type { Anime } from "../../types/anime";
+import { getRandomAnimes } from "../../utils/randomAnime";
+import AnimeCard from "../../components/AnimeCard/AnimeCard";
 
 function Recommended() {
   const [currentAnime, setCurrentAnime] = useState<Anime | null>(null);

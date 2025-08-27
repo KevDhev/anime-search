@@ -1,5 +1,5 @@
-import { useFavorites } from "../hooks/useFavorites";
-import AnimeList from "../components/AnimeList/AnimeList";
+import { useFavorites } from "../../hooks/useFavorites";
+import AnimeList from "../../components/AnimeList/AnimeList";
 
 function Favorites() {
   const { favorites } = useFavorites();
