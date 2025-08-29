@@ -1,6 +1,7 @@
 import { searchAnime } from "../../services/jikanAPI";
 import { useState, useRef } from "react";
 import type { Anime } from "../../types/anime";
+import "./SearchBar.css";
 
 interface SearchBarProps {
   onSearchResults: (results: Anime[]) => void;
@@ -54,7 +55,7 @@ function SearchBar({ onSearchResults }: SearchBarProps) {
         value={searchTerm}
         onChange={handleInputChange}
         onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-        placeholder="Ex: Naruto"
+        placeholder="Naruto..."
       />
       <button onClick={handleSearch}>Search</button>
     </div>

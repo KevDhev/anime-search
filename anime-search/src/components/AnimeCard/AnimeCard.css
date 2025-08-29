@@ -1,0 +1,23 @@
+.anime-card {
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--color-black);
+  color: var(--color-teagreen);
+}
+
+.anime-card--compact {
+  position: relative;
+  width: 50%;
+}
+
+.anime-card--compact img {
+  width: 10rem;
+  height: 14rem;
+}
+
+.anime-card__actions {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+}

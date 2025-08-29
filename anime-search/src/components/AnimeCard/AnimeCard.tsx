@@ -1,6 +1,7 @@
 import type React from "react";
 import type { Anime } from "../../types/anime";
 import { useFavorites } from "../../hooks/useFavorites";
+import "./AnimeCard.css";
 
 interface Props {
   anime: Anime;
