@@ -1,4 +1,14 @@
 .anime-list {
-  border: 1px solid white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
   width: 100%;
+  padding: 20px;
+}
+
+.anime-list__item {
+  width: calc(50% - 1rem);
+  margin-bottom: 1rem;
 }

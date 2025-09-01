@@ -43,17 +43,17 @@ function AnimeCard({ anime, variant = "compact", onOpenModal }: Props) {
           <section className="anime-card__details">
             {anime.score && (
               <p>
-                ⭐ <strong>Score:</strong> {anime.score}
+                <strong>Score:</strong> {anime.score} ⭐
               </p>
             )}
             {anime.episodes && (
               <p>
-                📺 <strong>Episodes:</strong> {anime.episodes}
+                <strong>Episodes:</strong> {anime.episodes} 📺
               </p>
             )}
             {anime.genres && (
               <section>
-                <strong>Genres:</strong>
+                <strong>Genres: </strong>
                 <ul>
                   {anime.genres.map((genre) => (
                     <li key={genre.mal_id}>{genre.name}</li>
@@ -66,11 +66,20 @@ function AnimeCard({ anime, variant = "compact", onOpenModal }: Props) {
         ) : (
           // Compact view
           <section className="anime-card__compact-info">
-            {anime.score && <p>⭐ Score: {anime.score}</p>}
-            {anime.episodes && <p>📺 Episodes: {anime.episodes}</p>}
+            {anime.score && (
+              <p>
+                <strong>Score:</strong> {anime.score} ⭐
+              </p>
+            )}
+            {anime.episodes && (
+              <p>
+                {" "}
+                <strong>Episodes:</strong> {anime.episodes} 📺
+              </p>
+            )}
             {anime.genres && (
               <p>
-                Genres:
+                <strong>Genres: </strong>
                 <span>
                   {anime.genres.map((genre) => genre.name).join(", ")}
                 </span>
