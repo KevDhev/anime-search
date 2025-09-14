@@ -12,3 +12,9 @@
   width: calc(50% - 1rem);
   margin-bottom: 1rem;
 }
+
+.no-results {
+  color: white;
+  font-family: var(--secundary-font);
+  font-size: 25px;
+}

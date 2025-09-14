@@ -24,7 +24,7 @@ function AnimeList({ animes, variant = "compact" }: Props) {
   };
 
   if (animes.length === 0) {
-    return <p className="no-results">No anime found. Please try again.</p>;
+    return <p className="no-results">No anime found. Please search for one!</p>;
   }
 
   return (

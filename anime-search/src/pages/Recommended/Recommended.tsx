@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Anime } from "../../types/anime";
 import { getRandomAnimes } from "../../utils/randomAnime";
 import AnimeCard from "../../components/AnimeCard/AnimeCard";
+import "./Recommended.css";
 
 function Recommended() {
   const [currentAnime, setCurrentAnime] = useState<Anime | null>(null);
@@ -49,7 +50,7 @@ function Recommended() {
 
   return (
     <section className="recommended-page">
-      <h2>Recommended Anime</h2>
+      <h2 className="rec-title">Recommended Anime</h2>
       <AnimeCard anime={currentAnime} variant="detailed" />
     </section>
   );

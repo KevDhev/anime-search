@@ -1,0 +1,17 @@
+.favorites-page {
+  width: 100%;
+}
+
+.favorite-title {
+  color: var(--color-teagreen);
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.favorite-no-results {
+  color: var(--color-teagreen);
+  font-family: var(--secundary-font);
+  text-align: center;
+  margin-top: 2rem;
+  font-size: 25px;
+}
